@@ -15,3 +15,215 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
+pip install TextBlob
+fake = pd.read_excel (r"C:\Users\\fakenews.xlsx")
+true = pd.read_excel (r"C:\Users\\truenews.xlsx")
+true.head()
+fake['label']='fake'
+true['label']= 'true'
+true.head()
+fake.head()
+# Now , lest's concat the two datasets and make a new shuffled dataset called news
+news=pd.concat([true,fake])
+news.sample(frac = 1) #Shuffle 100%
+# 2 classes of training data for true and fake news
+training_data = []
+training_data.append({"class":"fake", "sentence":"Donald Trump Sends Out Embarrassing New Years Eve Message; This is Disturbing"})
+training_data.append({"class":"fake", "sentence":" Drunk Bragging Trump Staffer Started Russian Collusion Investigation"})
+training_data.append({"class":"fake", "sentence":"Sheriff David Clarke Becomes An Internet Joke For Threatening To Poke People In The Eye"})
+training_data.append({"class":"fake", "sentence":"Trump Is So Obsessed He Even Has Obamas Name Coded Into His Website"})
+training_data.append({"class":"fake", "sentence":"Pope Francis Just Called Out Donald Trump During His Christmas Speech"})
+training_data.append({"class":"fake", "sentence":"  Racist Alabama Cops Brutalize Black Boy While He Is In Handcuffs"})
+training_data.append({"class":"fake", "sentence":" Fresh Off The Golf Course, Trump Lashes Out At FBI Deputy Director And James Comey"})
+training_data.append({"class":"fake", "sentence":" Trump Said Some INSANELY Racist Stuff Inside The Oval Office, And Witnesses Back It Up"})
+training_data.append({"class":"fake", "sentence":" Former CIA Director Slams Trump Over UN Bullying, Openly Suggests Heâ€™s Acting Like A Dictator (TWEET)"})
+training_data.append({"class":"fake", "sentence":" Brand-New Pro-Trump Ad Features So Much Ass Kissing It Will Make You Sick"})
+training_data.append({"class":"fake", "sentence":" Papa Johnâs Founder Retires, Figures Out Racism Is Bad For Business"})
+training_data.append({"class":"fake", "sentence":"Paul Ryan Just Told Us He Doesn't Care About Struggling Families Living In Blue States"})
+training_data.append({"class":"fake", "sentence":" Bad News For Trump  Mitch McConnell Says No To Repealing Obamacare In 2018"})
+training_data.append({"class":"fake", "sentence":"   Lindsey Graham Trashes Media For Portraying Trump As Kooky, Forgets His Own Words"})
+training_data.append({"class":"fake", "sentence":" Heiress To Disney Empire Knows GOP Scammed Us SHREDS Them For Tax Bill"})
+training_data.append({"class":"fake", "sentence":"  Tone Deaf Trump: Congrats Rep. Scalise On Losing Weight After You Almost Died"})
+training_data.append({"class":"fake", "sentence":" The Internet Brutally Mocks Disney New Trump Robot At Hall Of Presidents"})
+training_data.append({"class":"fake", "sentence":" Mueller Spokesman Just F-cked Up Donald Trumps Christmas"})
+training_data.append({"class":"fake", "sentence":"SNL Hilariously Mocks Accused Child Molester Roy Moore For Losing AL Senate Race"})
+training_data.append({"class":"fake", "sentence":" Republican Senator Gets Dragged For Going After Robert Mueller"})
+training_data.append({"class":"fake", "sentence":"In A Heartless Rebuke To Victims, Trump Invites NRA To Xmas Party On Sandy Hook Anniversary"})
+training_data.append({"class":"fake", "sentence":" KY GOP State Rep. Commits Suicide Over Allegations He Molested A Teen Girl"})
+training_data.append({"class":"fake", "sentence":"  Meghan McCain Tweets The Most AMAZING Response To Doug Jonesâ Win In Deep-Red Alabama"})
+training_data.append({"class":"fake", "sentence":" CNN CALLS IT: A Democrat Will Represent Alabama In The Senate For The First Time In 25 Years"})
+training_data.append({"class":"fake", "sentence":"  White House: It Wasnâ€™t Sexist For Trump To Slut-Shame Sen. Kirsten Gillibrand"})
+training_data.append({"class":"fake", "sentence":" Despicable Trump Suggests Female Senator Would â˜Do Anything With Him For Campaign Money"})
+training_data.append({"class":"fake", "sentence":"  Accused Child Molesting Senate Candidate Roy Moore Sides With Putin Over Reagan"})
+training_data.append({"class":"fake", "sentence":"Fox Host Calls For A Cleansing Of The FBI, And To Arrest Everyone Investigating Trump"})
+training_data.append({"class":"fake", "sentence":" Liberal Group Trolls Trump At Roy Moore Rally In The Best Possible Way"})
+training_data.append({"class":"fake", "sentence":"   Don Jr. Tries To Mock Al Frankenâ€™s Resignation, Backfires Immediately"})
+training_data.append({"class":"fake", "sentence":" BREAKING: Cop Finally Gets His Due, Walter Scottâ€™s Killer Sentenced To Prison"})
+training_data.append({"class":"fake", "sentence":"  Is This Proof Trump Is Unfit for Service?"})
+training_data.append({"class":"fake", "sentence":"  Trump Completely SCREWS The Middle East Peace Process, Just Another Wednesday For Him"})
+training_data.append({"class":"fake", "sentence":" Trump Only Cares About Trump; Why He Is Recognizing Jerusalem Today"})
+training_data.append({"class":"fake", "sentence":" Trump Supporting Coal CEO Upset Trump Is Wiping Out â€˜Thousandsâ€™ Of Coal Mining Jobs"})
+training_data.append({"class":"fake", "sentence":" Sitting GOP Senator Has Had ENOUGH, Donates To Alabama Democrat For Senate"})
+training_data.append({"class":"fake", "sentence":"  Republican National Committee: Better A Pedophile Than A Democrat In The U.S. Senate"})
+training_data.append({"class":"fake", "sentence":" Donald Trumpâ€™s Eating Habits Could Be Dramatically Affecting His Wellbeing And Our Safety"})
+training_data.append({"class":"fake", "sentence":"  John McCain Wanted Another 74 Twitter Followers, But His Plan Backfired Miserably"})
+training_data.append({"class":"fake", "sentence":"   This Sarah Huckabee Sanders Tweet About Attacking The FBI Hasnt Aged Well"})
+training_data.append({"class":"fake", "sentence":" FBI Agents Destroy Donald Trump After He Attacks The Agency And James Comey"})
+training_data.append({"class":"fake", "sentence":"  Ghost Of Witness Flipped: Hilarious SNL Skit Takes Trump Into His Own Private Holiday Hell"})
+training_data.append({"class":"fake", "sentence":"  Leaked Email Proves Trump Officials Aware Russia Had â˜Thrown The USA Election To Trump"})
+training_data.append({"class":"fake", "sentence":"  Trump Just Admitted He Knew Flynn Lied To The FBI Before He Asked Comey To Drop The Investigation"})
+training_data.append({"class":"fake", "sentence":" Watch This Awesome Mashup of Michael Flynn Leading The â Lock Her Up Chant As He Goes Off To Court"})
+training_data.append({"class":"fake", "sentence":" White House Panics Knowing Flynn Is Going To Take Them Down"})
+training_data.append({"class":"fake", "sentence":"    BREAKING: Michael Flynn CRACKS  Will Testify To Mueller Against Trump Himself"})
+training_data.append({"class":"fake", "sentence":"Trump Gets An Epic F**ck You From Britain Over His White Supremacist Retweets"})
+training_data.append({"class":"fake", "sentence":"   This Hilarious Campaign Ad Shows Voters How They Can Avoid Scandalous Elected Officials"})
+
+
+training_data.append({"class":"true", "sentence":"As U.S. budget fight looms, Republicans flip their fiscal script"})
+training_data.append({"class":"true", "sentence":"U.S. military to accept transgender recruits on Monday: Pentagon"})
+training_data.append({"class":"true", "sentence":"Senior U.S. Republican senator: 'Let Mr. Mueller do his job"})
+training_data.append({"class":"true", "sentence":"FBI Russia probe helped by Australian diplomat tip-off: NYT"})
+training_data.append({"class":"true", "sentence":"Trump wants Postal Service to charge 'much more' for Amazon shipments"})
+training_data.append({"class":"true", "sentence":"White House, Congress prepare for talks on spending, immigration"})
+training_data.append({"class":"true", "sentence":"Trump says Russia probe will be fair, but timeline unclear: NYT"})
+training_data.append({"class":"true", "sentence":"Factbox: Trump on Twitter (Dec 29) - Approval rating, Amazon"})
+training_data.append({"class":"true", "sentence":"Trump on Twitter (Dec 28) - Global Warming"})
+training_data.append({"class":"true", "sentence":"Alabama official to certify Senator-elect Jones today despite challenge: CNN"})
+training_data.append({"class":"true", "sentence":"Jones certified U.S. Senate winner despite Moore challenge"})
+training_data.append({"class":"true", "sentence":"New York governor questions the constitutionality of federal tax overhaul"})
+training_data.append({"class":"true", "sentence":"Factbox: Trump on Twitter (Dec 28) - Vanity Fair, Hillary Clinton"})
+training_data.append({"class":"true", "sentence":"Trump on Twitter (Dec 27) - Trump, Iraq, Syria"})
+training_data.append({"class":"true", "sentence":"Man says he delivered manure to Mnuchin to protest new U.S. tax law"})
+training_data.append({"class":"true", "sentence":"Virginia officials postpone lottery drawing to decide tied statehouse election"})
+training_data.append({"class":"true", "sentence":"U.S. lawmakers question businessman at 2016 Trump Tower meeting: sources"})
+training_data.append({"class":"true", "sentence":"Trump on Twitter (Dec 26) - Hillary Clinton, Tax Cut Bill"})
+training_data.append({"class":"true", "sentence":"U.S. appeals court rejects challenge to Trump voter fraud panel"})
+training_data.append({"class":"true", "sentence":"Treasury Secretary Mnuchin was sent gift-wrapped box of horse manure: reports"})
+training_data.append({"class":"true", "sentence":"Federal judge partially lifts Trump's latest refugee restrictions"})
+training_data.append({"class":"true", "sentence":"Exclusive: U.S. memo weakens guidelines for protecting immigrant children in court"})
+training_data.append({"class":"true", "sentence":"Trump travel ban should not apply to people with strong U.S. ties: court"})
+training_data.append({"class":"true", "sentence":"Second court rejects Trump bid to stop transgender military recruits"})
+training_data.append({"class":"true", "sentence":"Failed vote to oust president shakes up Peru's politics"})
+training_data.append({"class":"true", "sentence":"Trump signs tax, government spending bills into law"})
+training_data.append({"class":"true", "sentence":"Companies have up to a year for new U.S. tax bill reporting: SEC"})
+training_data.append({"class":"true", "sentence":"Trump on Twitter (Dec 22) - Tax cut, Missile defense bill"})
+training_data.append({"class":"true", "sentence":"Senate leader McConnell sees a more collegial 2018"})
+training_data.append({"class":"true", "sentence":"Alabama to certify Democrat Jones winner of Senate election"})
+training_data.append({"class":"true", "sentence":"McConnell happier with Trump tweets after tax victory"})
+training_data.append({"class":"true", "sentence":"House panel asks Trump ex-top aide Bannon to testify: Bloomberg"})
+training_data.append({"class":"true", "sentence":"Callista Gingrich becomes Trump's envoy to pope as differences mount"})
+training_data.append({"class":"true", "sentence":"As Republicans aim to ride economy to election victory, a warning from voters in key district"})
+training_data.append({"class":"true", "sentence":"Exclusive: State Department tells refugee agencies to downsize U.S. operations"})
+training_data.append({"class":"true", "sentence":"Congress votes to avert shutdown, sends Trump stopgap spending bill"})
+training_data.append({"class":"true", "sentence":"Factbox: Big-ticket items at center of Congress spending bill"})
+training_data.append({"class":"true", "sentence":"In victory for Trump, judge tosses suit on foreign payments"})
+training_data.append({"class":"true", "sentence":"Senate shelves disaster aid bill until next month"})
+training_data.append({"class":"true", "sentence":"Trump on Twitter (Dec 21) - Tax Cuts, Home sales"})
+training_data.append({"class":"true", "sentence":"House widens ethics probe to include Farenthold campaign work"})
+training_data.append({"class":"true", "sentence":"U.S. court rejects Trump bid to stop transgender military recruits on Jan. 1"})
+training_data.append({"class":"true", "sentence":"U.S. House approves $81 billion for disaster aid"})
+training_data.append({"class":"true", "sentence":"House Democrats rally to protect Special Counsel Mueller"})
+training_data.append({"class":"true", "sentence":"Second U.S. judge blocks Trump administration birth control rules"})
+training_data.append({"class":"true", "sentence":"Senators seek to stop expansion of airport facial scans"})
+training_data.append({"class":"true", "sentence":"U.S. launches effort to reduce reliance on imports or critical minerals"})
+training_data.append({"class":"true", "sentence":"Short-term government funding, disaster aid bills advance in House"})
+
+
+
+print ("%s sentences of training data" % len(training_data))
+
+
+import nltk
+nltk.download('punkt')
+# use natural language toolkit
+import nltk
+from nltk.stem.lancaster import LancasterStemmer
+# word stemmer
+stemmer = LancasterStemmer() 
+# capture unique stemmed words in the training corpus
+corpus_words = {}
+class_words = {}
+# turn a list into a set (of unique items) and then a list again (this removes duplicates)
+classes = list(set([a['class'] for a in training_data]))
+for c in classes:
+    # prepare a list of words within each class
+    class_words[c] = []
+
+# loop through each sentence in our training data
+for data in training_data:
+    # tokenize each sentence into words
+    for word in nltk.word_tokenize(data['sentence']):
+        # ignore a some things
+        if word not in ["?", "'s"]:
+            # stem and lowercase each word
+            stemmed_word = stemmer.stem(word.lower())
+            # have we not seen this word already?
+            if stemmed_word not in corpus_words:
+                corpus_words[stemmed_word] = 1
+            else:
+                corpus_words[stemmed_word] += 1
+
+            # add the word to our words in class list
+            class_words[data['class']].extend([stemmed_word])
+
+# we now have each stemmed word and the number of occurances of the word in our training corpus (the word's commonality)
+print ("Corpus words and counts: %s \n" % corpus_words)
+# also we have all words in each class
+print ("Class words: %s" % class_words)
+# calculate a score for a given class
+def calculate_class_score(sentence, class_name, show_details=True):
+    score = 0
+    # tokenize each word in our new sentence
+    for word in nltk.word_tokenize(sentence):
+        # check to see if the stem of the word is in any of our classes
+        if stemmer.stem(word.lower()) in class_words[class_name]:
+            # treat each word with same weight
+            score += 1
+            
+            if show_details:
+                print ("   match: %s" % stemmer.stem(word.lower() ))
+    return score
+
+
+# we can now calculate a score for a new sentence
+sentence =  input("Enter news to verify : ") 
+
+# now we can find the class with the highest score
+for c in class_words.keys():
+    print ("News: %s  Score: %s \n" % (c, calculate_class_score(sentence, c)))
+# calculate a score for a given class taking into account word commonality
+def calculate_class_score(sentence, class_name, show_details=True):
+    score = 0
+    # tokenize each word in our new sentence
+    for word in nltk.word_tokenize(sentence):
+        # check to see if the stem of the word is in any of our classes
+        if stemmer.stem(word.lower()) in class_words[class_name]:
+            # treat each word with relative weight
+            score += (1 / corpus_words[stemmer.stem(word.lower())])
+
+            if show_details:
+                print ("   match: %s (%s)" % (stemmer.stem(word.lower()), 1 / corpus_words[stemmer.stem(word.lower())]))
+    return score
+# we can now calculate a score for a new sentence
+sentence =  input("Enter news to verify : ") 
+
+# now we can find the class with the highest score
+for c in class_words.keys():
+    print ("News: %s  Score: %s \n" % (classify(sentence)))
+    break;
+    def classify(sentence):
+    high_class = None
+    high_score = 0
+    
+    # loop through our classes
+    for c in class_words.keys():
+        # calculate score of sentence for each class
+        score = calculate_class_score(sentence, c, show_details=False)
+        # keep track of highest score
+        if score > high_score:
+            high_class = c
+            high_score = score
+           
+            
+
+    return high_class, high_score
