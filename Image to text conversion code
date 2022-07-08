@@ -1,0 +1,8 @@
+pip install opencv-python
+pip install pytesseract
+import cv2
+import pytesseract
+from PIL import Image
+from pytesseract import image_to_string
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
+print(pytesseract.image_to_string(r'C:\Users\fnews1.png'))
