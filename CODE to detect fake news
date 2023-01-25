@@ -224,6 +224,4 @@ for c in class_words.keys():
             high_class = c
             high_score = score
            
-            
-
     return high_class, high_score
